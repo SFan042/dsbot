@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+var prefix = '!';
 
 const client = new Discord.Client();
 client.on('message', message => {
