@@ -3,6 +3,31 @@ var fs = require('fs');
 var prefix = '!';
 var command = '';
 var temp = [];
+var time = [];
+var rand = 0;
+
+for(i = 0; i < 999; i++){
+	time[i] = 999999;
+}
+
+function randomInteger(min, max) {
+    var rand = min - 0.5 + Math.random() * (max - min + 1)
+    rand = Math.round(rand);
+    return rand;
+  }
+
+function subTime(){
+	for(i = 0; i < 200; i++){
+		if(time[i] > 0){
+			time[i] = time[i] - 1;
+			rand = randomInteger(0,99999);
+			var fs = require('fs');
+				fs.readFile('koshel.txt', 'utf8', function(err,data){
+					const args = data.trim().split(/ +/g);
+				}
+		}
+	}
+}
 
 const client = new Discord.Client();
 client.on('message', message => {
@@ -107,6 +132,120 @@ client.on('message', message => {
 				temp[3] = 0;
 		});
 	}
+	//━━━━━━━━━━━━━━━━━━━━━━━•
+	if(cargs[0] === 'работа'){
+		if(cargs[1] === undefined){
+		var fs = require('fs');
+		fs.readFile('ores.txt', 'utf8', function(err,data){
+			const args = data.trim().split(/ +/g);
+			temp[4] = 0;
+			for(i = 1; i<args[0]; i++){
+						if(args[i] === message.author.username){
+							temp[4] = 1;
+							message.channel.send("```js\nРабота " + message.author.username + "\n•━━━━━━━━━━━━━━━━━━━━━━━•\n•Уголь: " + args[i+1] + " штук.\n•Железо: " + args[i+2] + " штук.\n•Золото:  " + args[i+3] + " штук.\n•Алмазы: " + args[i+4] + " штук.\n━━━━━━━━━━━━━━━━━━━━━━━\nДоступные действия:\n\"!работа продать\" - узнать цены на руды, курс ШахтоКоинов, продать руды, обменять ШахтоКоины на СфанКоины.\n\"!работа шахта\" - начать работать на шахте.```");
+						}
+			}
+						if(temp[4] === 0){
+							temp[4] = 0;
+							data2 = data;
+							const args2 = data2.trim().split(/ +/g);
+							args2[Number(args2[0])+1] = message.author.username;
+							args2[Number(args2[0])+2] = 0;
+							args2[Number(args2[0])+3] = 0;
+							args2[Number(args2[0])+4] = 0;
+							args2[Number(args2[0])+5] = 0;
+							args2[0] = Number(args2[0]) + 5;
+							message.channel.send("```js\nРабота " + message.author.username + "\n•━━━━━━━━━━━━━━━━━━━━━━━•\n•Уголь: " + args2[i+2] + " штук.\n•Железо: " + args2[i+3] + " штук.\n•Золото:  " + args2[i+4] + " штук.\n•Алмазы: " + args2[i+5] + " штук.\n━━━━━━━━━━━━━━━━━━━━━━━\nДоступные действия:\n\"!работа продать\" - узнать цены на руды, курс ШахтоКоинов, продать руды, обменять ШахтоКоины на СфанКоины.\n\"!работа шахта\" - начать работать на шахте.```");
+							data2 = '';
+							for(i = 0; i<=args2[0]; i++){
+								data2 = data2 + args2[i] + " ";
+								}
+							fs.writeFile("ores.txt",data2);
+						}
+		});
+		}
+		if(cargs[1] === "продать"){
+			if(cargs[2] === undefined){
+				var fs = require('fs');
+				fs.readFile('ores.txt', 'utf8', function(err,data){
+					const args = data.trim().split(/ +/g);
+					temp[4] = 0;
+						for(i = 1; i<args[0]; i++){
+							if(args[i] === message.author.username){
+								message.channel.send("```js\nРабота " + message.author.username + "\n━━━━━━━━━━━━━━━━━━━━━━━\n•Уголь: " + Number(args[i+1]) * 0.5 + " сфк. (цена за шт. - 0.5 сфк.)\n•Железо: " + Number(args[i+2]) * 5 + " сфк. (цена за шт. - 5 сфк.)\n•Золото: " + Number(args[i+3]) * 36 + " сфк. (цена за шт. - 36 сфк.)\n•Алмаз: " + Number(args[i+4]) * 172 + " сфк. (цена за шт. - 172 сфк.)\n•━━━━━━━━━━━━━━━━━━━━━━━•\n\"!работа продать \[Название\]\" - продать руду \[Название\].```");
+							}
+			}
+		});
+			}
+			if(cargs[2] != undefined){
+				temp[6] = 0;
+				if(cargs[2] === "Уголь"){
+					var fs = require('fs');
+					fs.readFile('ores.txt', 'utf8', function(err,data){
+						const args = data.trim().split(/ +/g);
+							for(i = 1; i<args[0]; i++){
+								if(args[i] === message.author.username){
+									if(args[i+1] != 0){
+										temp[5] = Number(args[i+1]) * 0.5;
+										args[i+1] = 0;
+										data = '';
+										for(i = 0; i<=args[0]; i++){
+											data = data + args[i] + " ";
+											}
+										fs.writeFile("ores.txt",data);
+									}
+									else{
+										message.reply("У вас нету угля, чтобы продать его!");
+										temp[6] = 1;
+									}
+								}
+				}
+				});
+				if(temp[6] === 0){
+					var fs = require('fs');
+					fs.readFile('koshel.txt', 'utf8', function(err,data){
+						var fs = require('fs');
+						const args = data.trim().split(/ +/g);
+						for(i = 1; i<args[0]; i++){
+							if(args[i] === message.author.username){
+								data2 = data;
+								const args2 = data2.trim().split(/ +/g);
+								args2[i+1] = Number(args2[i+1]) + Number(temp[5]);
+								data2 = '';
+								message.reply("Вы продали уголь, вы получили: " + temp[5] + " сфк.");
+								for(i = 0; i<=args2[0]; i++){
+									data2 = data2 + args2[i] + " ";
+									}
+								fs.writeFile("koshel.txt",data2);
+						}
+			}
+					});
+				}
+			}
+			
+		}
+		}
+		if(cargs[1] === "шахта"){
+			var fs = require('fs');
+				fs.readFile('koshel.txt', 'utf8', function(err,data){
+					var fs = require('fs');
+					const args = data.trim().split(/ +/g);
+					for(i = 1; i<args[0]; i++){
+						if(args[i] === message.author.username){
+							if(time[i] === 0){
+								time[i] = 120;
+								message.reply("Вы начали копать шахту. Через 2 минуты вы закончите, и узнаете, что вы добыли.");
+							}
+							if(time[i] != 0){
+								message.reply("Вы все еще копаете шахту! Вам осталось копать: " + time[i] + " секунд.");
+							}
+						}
+					}
+		}
+		temp[4] = 0;
+		temp[5] = 0;
+		temp[6] = 0;
 	}
+}
 });
-client.login(process.env.BOT_TOKEN);
+client.login('Mzk5MDgyNDgxOTU0ODQ4Nzgx.DkbHdw.HhL3VkYB0nkc9VjQSm54HdoEg3M');
