@@ -28,6 +28,7 @@ const client = new Discord.Client();
 client.on('message', message => {
 	if(message.author === client.user) return;
 	if(message.content.startsWith(prefix)){
+		temp[5] = 0;
 		command = message.content.slice(prefix.length);
 		const cargs = command.trim().split(/ +/g);
 		if(cargs[0] === "кошелек" || cargs[0] === "кошелёк"){
