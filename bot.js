@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const config = require("./config.json");
 var fs = require('fs');
 var prefix = '!';
 var command = '';
@@ -18,15 +19,26 @@ function randomInteger(min, max) {
 
 function subTime(){
 	for(i = 0; i < 200; i++){
-		if(time[i] > 0){
+		if(time[i] > 0 && time[i] != 999999){
 			time[i] = time[i] - 1;
 			rand = randomInteger(0,99999);
 			var fs = require('fs');
-				fs.readFile('koshel.txt', 'utf8', function(err,data){
+				fs.readFile('ores.txt', 'utf8', function(err,data){
 					const args = data.trim().split(/ +/g);
-				}
+							console.log(time[i]);
+							if(rand > 40000 && rand < 60000){
+								args[i+1] = Number(args[i+1]) + randomInteger(1,4);
+								console.log("уголь");
+								data = '';
+								for(i = 0; i <= args[0]; i++){
+									data = data + args[i] + ' ';
+									fs.writeFile("ores.txt",data);
+								}
+					}
+				});
 		}
 	}
+	setTimeout(subTime,1000);
 }
 
 const client = new Discord.Client();
@@ -232,20 +244,22 @@ client.on('message', message => {
 					const args = data.trim().split(/ +/g);
 					for(i = 1; i<args[0]; i++){
 						if(args[i] === message.author.username){
-							if(time[i] === 0){
+							if(time[i] === 0 || time[i] === 999999){
 								time[i] = 120;
 								message.reply("Вы начали копать шахту. Через 2 минуты вы закончите, и узнаете, что вы добыли.");
+								subTime();
 							}
-							if(time[i] != 0){
+							if(time[i] != 0 && time[i] != 999999){
 								message.reply("Вы все еще копаете шахту! Вам осталось копать: " + time[i] + " секунд.");
 							}
 						}
 					}
-		}
+		});
 		temp[4] = 0;
 		temp[5] = 0;
 		temp[6] = 0;
 	}
 }
+	}
 });
-client.login('Mzk5MDgyNDgxOTU0ODQ4Nzgx.DkbHdw.HhL3VkYB0nkc9VjQSm54HdoEg3M');
+client.login(config.token);
