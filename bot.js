@@ -387,7 +387,7 @@ client.on('message', message => {
 									message.reply("Добыто " + rand2 + " штук Золота!");
 									args[i+3] = Number(args[i+3]) + rand2;
 								}
-								if(rand > -1 && rand <= 5000){
+								if(rand > -1 && rand <= 500){
 									var rand2 = randomInteger(1,5);
 									message.reply("Добыто " + rand2 + " штук **Алмазов**!");
 									args[i+4] = Number(args[i+4]) + rand2;
