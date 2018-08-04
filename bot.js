@@ -1,13 +1,13 @@
 const Discord = require('discord.js');
 var fs = require('fs');
-var prefix = '!';
 var command = '';
 var temp = [];
+const config = require("./config.json");
 
 const client = new Discord.Client();
 client.on('message', message => {
 	if(message.author === client.user) return;
-	if(message.content.startsWith(prefix)){
+	if(message.content.startsWith(config.prefix)){
 		command = message.content.slice(prefix.length);
 		const cargs = command.trim().split(/ +/g);
 		if(cargs[0] === "кошелек" || cargs[0] === "кошелёк"){
@@ -110,4 +110,4 @@ client.on('message', message => {
 	}
 });
 
-client.login('Mzk5MDgyNDgxOTU0ODQ4Nzgx.DTH6UQ.498i4tzwCJ5bS2vhWA9d5x5uZWg');
+client.login(config.token);
