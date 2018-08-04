@@ -1,9 +1,8 @@
 const Discord = require('discord.js');
 var fs = require('fs');
+var prefix = '!';
 var command = '';
 var temp = [];
-var prefix = '!';
-const config = require("./config.json");
 
 const client = new Discord.Client();
 client.on('message', message => {
@@ -110,5 +109,4 @@ client.on('message', message => {
 	}
 	}
 });
-
 client.login(process.env.BOT_TOKEN);
