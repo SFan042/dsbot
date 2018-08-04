@@ -5,9 +5,10 @@ var command = '';
 var temp = [];
 var time = [];
 var rand = 0;
+var tosend = '';
 
 for(i = 0; i < 999; i++){
-	time[i] = 999999;
+	time[i] = 0;
 }
 
 function randomInteger(min, max) {
@@ -16,30 +17,13 @@ function randomInteger(min, max) {
     return rand;
   }
 
-function subTime(){
-	for(i = 0; i < 200; i++){
-		if(time[i] > 0 && time[i] != 999999){
-			time[i] = time[i] - 1;
-			rand = randomInteger(0,99999);
-			var fs = require('fs');
-				fs.readFile('ores.txt', 'utf8', function(err,data){
-					const args = data.trim().split(/ +/g);
-							console.log(time[i]);
-							if(rand > 40000 && rand < 60000){
-								args[i+1] = Number(args[i+1]) + randomInteger(1,4);
-								console.log("уголь");
-								data = '';
-								for(i = 0; i <= args[0]; i++){
-									data = data + args[i] + ' ';
-									fs.writeFile("ores.txt",data);
-								}
-					}
-				});
-		}
-	}
-	setTimeout(subTime,1000);
-}
-
+  function subTime(getI){
+	if(time[getI] != 0){
+	 time[getI] = time[getI] - 1;
+	 setTimeout(subTime,1000, getI);
+	 }
+ }
+  
 const client = new Discord.Client();
 client.on('message', message => {
 	if(message.author === client.user) return;
@@ -235,21 +219,191 @@ client.on('message', message => {
 			}
 			
 		}
+		if(cargs[2] != undefined){
+				temp[6] = 0;
+				if(cargs[2] === "Железо"){
+					var fs = require('fs');
+					fs.readFile('ores.txt', 'utf8', function(err,data){
+						const args = data.trim().split(/ +/g);
+							for(i = 1; i<args[0]; i++){
+								if(args[i] === message.author.username){
+									if(args[i+2] != 0){
+										temp[5] = Number(args[i+2]) * 5;
+										args[i+2] = 0;
+										data = '';
+										for(i = 0; i<=args[0]; i++){
+											data = data + args[i] + " ";
+											}
+										fs.writeFile("ores.txt",data);
+									}
+									else{
+										message.reply("У вас нету железа, чтобы продать его!");
+										temp[6] = 1;
+									}
+								}
+				}
+				});
+				if(temp[6] === 0){
+					var fs = require('fs');
+					fs.readFile('koshel.txt', 'utf8', function(err,data){
+						var fs = require('fs');
+						const args = data.trim().split(/ +/g);
+						for(i = 1; i<args[0]; i++){
+							if(args[i] === message.author.username){
+								data2 = data;
+								const args2 = data2.trim().split(/ +/g);
+								args2[i+1] = Number(args2[i+1]) + Number(temp[5]);
+								data2 = '';
+								message.reply("Вы продали железо, вы получили: " + temp[5] + " сфк.");
+								for(i = 0; i<=args2[0]; i++){
+									data2 = data2 + args2[i] + " ";
+									}
+								fs.writeFile("koshel.txt",data2);
+						}
+			}
+					});
+				}
+			}
+			
+		}
+		if(cargs[2] != undefined){
+				temp[6] = 0;
+				if(cargs[2] === "Золото"){
+					var fs = require('fs');
+					fs.readFile('ores.txt', 'utf8', function(err,data){
+						const args = data.trim().split(/ +/g);
+							for(i = 1; i<args[0]; i++){
+								if(args[i] === message.author.username){
+									if(args[i+3] != 0){
+										temp[5] = Number(args[i+3]) * 36;
+										args[i+3] = 0;
+										data = '';
+										for(i = 0; i<=args[0]; i++){
+											data = data + args[i] + " ";
+											}
+										fs.writeFile("ores.txt",data);
+									}
+									else{
+										message.reply("У вас нету золота, чтобы продать его!");
+										temp[6] = 1;
+									}
+								}
+				}
+				});
+				if(temp[6] === 0){
+					var fs = require('fs');
+					fs.readFile('koshel.txt', 'utf8', function(err,data){
+						var fs = require('fs');
+						const args = data.trim().split(/ +/g);
+						for(i = 1; i<args[0]; i++){
+							if(args[i] === message.author.username){
+								data2 = data;
+								const args2 = data2.trim().split(/ +/g);
+								args2[i+1] = Number(args2[i+1]) + Number(temp[5]);
+								data2 = '';
+								message.reply("Вы продали золото, вы получили: " + temp[5] + " сфк.");
+								for(i = 0; i<=args2[0]; i++){
+									data2 = data2 + args2[i] + " ";
+									}
+								fs.writeFile("koshel.txt",data2);
+						}
+			}
+					});
+				}
+			}
+			
+		}
+		if(cargs[2] != undefined){
+				temp[6] = 0;
+				if(cargs[2] === "Алмазы"){
+					var fs = require('fs');
+					fs.readFile('ores.txt', 'utf8', function(err,data){
+						const args = data.trim().split(/ +/g);
+							for(i = 1; i<args[0]; i++){
+								if(args[i] === message.author.username){
+									if(args[i+4] != 0){
+										temp[5] = Number(args[i+4]) * 172;
+										args[i+4] = 0;
+										data = '';
+										for(i = 0; i<=args[0]; i++){
+											data = data + args[i] + " ";
+											}
+										fs.writeFile("ores.txt",data);
+									}
+									else{
+										message.reply("У вас нету алмазов, чтобы продать их!");
+										temp[6] = 1;
+									}
+								}
+				}
+				});
+				if(temp[6] === 0){
+					var fs = require('fs');
+					fs.readFile('koshel.txt', 'utf8', function(err,data){
+						var fs = require('fs');
+						const args = data.trim().split(/ +/g);
+						for(i = 1; i<args[0]; i++){
+							if(args[i] === message.author.username){
+								data2 = data;
+								const args2 = data2.trim().split(/ +/g);
+								args2[i+1] = Number(args2[i+1]) + Number(temp[5]);
+								data2 = '';
+								message.reply("Вы продали алмазы, вы получили: " + temp[5] + " сфк.");
+								for(i = 0; i<=args2[0]; i++){
+									data2 = data2 + args2[i] + " ";
+									}
+								fs.writeFile("koshel.txt",data2);
+						}
+			}
+					});
+				}
+			}
+			
+		}
 		}
 		if(cargs[1] === "шахта"){
 			var fs = require('fs');
-				fs.readFile('koshel.txt', 'utf8', function(err,data){
+				fs.readFile('ores.txt', 'utf8', function(err,data){
 					var fs = require('fs');
 					const args = data.trim().split(/ +/g);
 					for(i = 1; i<args[0]; i++){
 						if(args[i] === message.author.username){
-							if(time[i] === 0 || time[i] === 999999){
+							if(time[i] === 0){
+								var i2 = i;
 								time[i] = 120;
-								message.reply("Вы начали копать шахту. Через 2 минуты вы закончите, и узнаете, что вы добыли.");
-								subTime();
+								var rand = randomInteger(0,50000);
+								if(rand > 18000 && rand <= 40000){
+									var rand2 = randomInteger(4,26);
+									message.reply("Добыто " + rand2 + " штук Угля!");
+									args[i+1] = Number(args[i+1]) + rand2;
+								}
+								if(rand > 5000 && rand <= 18000){
+									var rand2 = randomInteger(3,20);
+									message.reply("Добыто " + rand2 + " штук Железа!");
+									args[i+2] = Number(args[i+2]) + rand2;
+								}
+								if(rand > 500 && rand <= 5000){
+									var rand2 = randomInteger(2,12);
+									message.reply("Добыто " + rand2 + " штук Золота!");
+									args[i+3] = Number(args[i+3]) + rand2;
+								}
+								if(rand > -1 && rand <= 5000){
+									var rand2 = randomInteger(1,5);
+									message.reply("Добыто " + rand2 + " штук **Алмазов**!");
+									args[i+4] = Number(args[i+4]) + rand2;
+								}
+								if(rand > 40000){
+									message.reply("Вы ничего не добыли.");
+								}
+								data = '';
+								for(i = 0; i<=args[0]; i++){
+									data = data + args[i] + " ";
+								}
+								fs.writeFile("ores.txt",data);
+								subTime(i2);
 							}
-							if(time[i] != 0 && time[i] != 999999){
-								message.reply("Вы все еще копаете шахту! Вам осталось копать: " + time[i] + " секунд.");
+							if(time[i] != 0){
+								message.reply("Вы недавно копали шахту! Подождите " + time[i] + " секунд.");
 							}
 						}
 					}
